@@ -7,7 +7,7 @@ public class Stock : AuditableEntity<StockId>, IAggregateRoot
 {
     public ProductId ProductId { get; private set; }
     public SizeId SizeId { get; private set; }
-    public int Count { get; set; }
+    public int Count { get; private set; }
     private Stock() : base() { }
 
     private Stock(StockId id, ProductId productId, SizeId sizeId, int count) : base(id)

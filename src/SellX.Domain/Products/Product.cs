@@ -1,4 +1,5 @@
 ﻿using SellX.Domain.Products.Events;
+using SellX.Domain.Products.Validators;
 using SellX.Domain.SeedWork;
 using System.Text.RegularExpressions;
 

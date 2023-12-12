@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using SellX.Application.Usuarios.Services;
 using SellX.Domain.Products;
 using SellX.Domain.SeedWork;
+using SellX.Domain.Stocks;
 using SellX.Domain.Tenants;
 using SellX.Domain.Users;
 using SellX.Infrastructure.Database.Interceptors;
@@ -21,8 +22,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Tenant> Tenants { get; set; }
-
     public DbSet<Product> Products { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
 
     public ApplicationDbContext(
         DbContextOptions options
