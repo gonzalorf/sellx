@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SellX.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using SellX.Infrastructure.Database;
 namespace SellX.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231212011910_Migra04")]
+    partial class Migra04
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,10 +62,10 @@ namespace SellX.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("PreviousPrice")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Tags")
                         .IsRequired()
@@ -106,10 +109,10 @@ namespace SellX.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("PreviousPrice")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -262,7 +265,7 @@ namespace SellX.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("27b7ff16-596c-48de-a3ea-cd933c4ef784"),
+                            Id = new Guid("7d43217e-d9bd-49f9-af90-79912c4a88f3"),
                             Deleted = false,
                             Email = "gonzalorf@sellx.com",
                             LastName = "Fernández",
@@ -275,7 +278,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("73f349ec-5e70-4c72-a220-2a8a2298646f"),
+                            Id = new Guid("1d86cfe3-d95a-4455-b02a-79352070a4b2"),
                             Deleted = false,
                             Email = "sayala@music.com",
                             LastName = "Ayala",
@@ -288,7 +291,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0d4c0397-c361-46d1-a1e9-74ee2c072525"),
+                            Id = new Guid("01c6acce-bb77-4076-8af4-cba168f3e9ff"),
                             Deleted = false,
                             Email = "jcafrune@music.com",
                             LastName = "Cafrune",

@@ -21,7 +21,9 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         _ = builder.Property(p => p.Name).IsRequired();
         _ = builder.Property(p => p.Description).IsRequired();
-        _ = builder.Property(p => p.Price).IsRequired();
+
+        _ = builder.Property(t => t.Price).HasColumnType("money");
+        _ = builder.Property(t => t.PreviousPrice).HasColumnType("money");
 
         _ = builder.Property(p => p.Tags)
             .HasMaxLength(256)

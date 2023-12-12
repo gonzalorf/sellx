@@ -17,5 +17,8 @@ internal class SizeConfiguration : IEntityTypeConfiguration<Size>
 
         _ = builder.Property(e => e.TenantId)
             .HasConversion(id => id.Value, value => new TenantId(value));
+
+        _ = builder.Property(t => t.Price).HasColumnType("money");
+        _ = builder.Property(t => t.PreviousPrice).HasColumnType("money");
     }
 }
