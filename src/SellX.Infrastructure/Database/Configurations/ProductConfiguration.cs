@@ -19,11 +19,12 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
         _ = builder.Property(e => e.TenantId)
             .HasConversion(id => id.Value, value => new TenantId(value));
 
-        _ = builder.Property(p => p.Name).IsRequired().HasMaxLength(256);
+        _ = builder.Property(p => p.Name).IsRequired();
         _ = builder.Property(p => p.Description).IsRequired();
         _ = builder.Property(p => p.Price).IsRequired();
 
         _ = builder.Property(p => p.Tags)
+            .HasMaxLength(256)
             .IsRequired()
             .HasConversion<StringListToStringConverter>();
     }

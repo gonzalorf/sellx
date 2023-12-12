@@ -38,6 +38,7 @@ public class ProductEndpoints : ICarterModule
                 , request.Name
                 , request.Description
                 , request.Price
+                , request.PreviousPrice
                 , request.Tags
                 );
 

@@ -54,39 +54,39 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
         // Poblado inicial
 
-        var cityplusTenantId = new TenantId(Guid.Parse("00000001-0001-0001-0001-000000000001"));
-        var municipalidadNorteTenantId = new TenantId(Guid.Parse("863e9564-4b31-409d-805f-88465b949f5a"));
-        var municipalidadSurTenantId = new TenantId(Guid.Parse("1420a446-4d7b-415f-bb4f-7b8f6f29a349"));
+        var gonzalorfTenantId = new TenantId(Guid.Parse("00000001-0001-0001-0001-000000000001"));
+        var firstStoreTenantId = new TenantId(Guid.Parse("863e9564-4b31-409d-805f-88465b949f5a"));
+        var secondStoreTenantId = new TenantId(Guid.Parse("1420a446-4d7b-415f-bb4f-7b8f6f29a349"));
 
         _ = modelBuilder.Entity<Tenant>().HasData(
             Tenant.CreateTenant(
-                cityplusTenantId
-                , "Cityplus Argentina"
+                gonzalorfTenantId
+                , "Gonzalo Tenant"
             )
         );
 
         _ = modelBuilder.Entity<Tenant>().HasData(
             Tenant.CreateTenant(
-                municipalidadNorteTenantId
-                , "Municipalidad Norte"
+                firstStoreTenantId
+                , "Store Norte"
             )
         );
 
         _ = modelBuilder.Entity<Tenant>().HasData(
             Tenant.CreateTenant(
-                municipalidadSurTenantId
-                , "Municipalidad Sur"
+                secondStoreTenantId
+                , "Store Sur"
             )
         );
 
         var firstUser = User.CreateUser(
-            "Steve"
-            , "Jobs"
-            , "steve@apple.com"
-            , "steve"
+            "Gonzalo"
+            , "Fernández"
+            , "gonzalorf@sellx.com"
+            , "gonzalo"
             , "123"
             );
-        firstUser.TenantId = cityplusTenantId;
+        firstUser.TenantId = gonzalorfTenantId;
         _ = modelBuilder.Entity<User>().HasData(
            firstUser
         );
@@ -98,7 +98,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             , "chucaro"
             , "123"
             );
-        firstUserNorte.TenantId = municipalidadNorteTenantId;
+        firstUserNorte.TenantId = firstStoreTenantId;
         _ = modelBuilder.Entity<User>().HasData(
            firstUserNorte
         );
@@ -110,7 +110,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             , "turco"
             , "123"
             );
-        firstUserSur.TenantId = municipalidadSurTenantId;
+        firstUserSur.TenantId = secondStoreTenantId;
         _ = modelBuilder.Entity<User>().HasData(
            firstUserSur
         );

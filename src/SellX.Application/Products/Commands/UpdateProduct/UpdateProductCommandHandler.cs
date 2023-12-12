@@ -16,7 +16,7 @@ internal class UpdateProductCommandHandler : ICommandHandler<UpdateProductComman
     {
         var product = await productRepository.GetById(request.ProductId) ?? throw new ProductNotFoundException(request.ProductId);
 
-        product.UpdateProperties(request.Name, request.Description, request.Price, request.Tags);
+        product.UpdateProperties(request.Name, request.Description, request.Price, request.PreviousPrice, request.Tags);
 
         productRepository.Update(product);
     }

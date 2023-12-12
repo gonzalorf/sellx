@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SellX.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using SellX.Infrastructure.Database;
 namespace SellX.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210184847_Migra02")]
+    partial class Migra02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,19 +106,19 @@ namespace SellX.Infrastructure.Migrations
                         {
                             Id = new Guid("00000001-0001-0001-0001-000000000001"),
                             Active = true,
-                            Name = "Gonzalo Tenant"
+                            Name = "Cityplus Argentina"
                         },
                         new
                         {
                             Id = new Guid("863e9564-4b31-409d-805f-88465b949f5a"),
                             Active = true,
-                            Name = "Store Norte"
+                            Name = "Municipalidad Norte"
                         },
                         new
                         {
                             Id = new Guid("1420a446-4d7b-415f-bb4f-7b8f6f29a349"),
                             Active = true,
-                            Name = "Store Sur"
+                            Name = "Municipalidad Sur"
                         });
                 });
 
@@ -169,12 +172,12 @@ namespace SellX.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7d5e1b37-2afe-4063-b4eb-c47f96458e32"),
+                            Id = new Guid("4cc637ef-845e-4e5b-8d9b-c9a7e7c2f9da"),
                             Deleted = false,
-                            Email = "gonzalorf@sellx.com",
-                            LastName = "Fernández",
-                            Login = "gonzalo",
-                            Name = "Gonzalo",
+                            Email = "steve@apple.com",
+                            LastName = "Jobs",
+                            Login = "steve",
+                            Name = "Steve",
                             Order = 0L,
                             Password = "123",
                             Role = "Administrador",
@@ -182,7 +185,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("95f224c9-0258-4272-9957-ea038942ae90"),
+                            Id = new Guid("470571b0-857b-4383-878c-619596e6420f"),
                             Deleted = false,
                             Email = "sayala@music.com",
                             LastName = "Ayala",
@@ -195,7 +198,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2b12a886-9a38-45f3-9850-5ffb95774ca0"),
+                            Id = new Guid("6462f0fa-3755-4aa8-bda6-4a333eaafeed"),
                             Deleted = false,
                             Email = "jcafrune@music.com",
                             LastName = "Cafrune",
