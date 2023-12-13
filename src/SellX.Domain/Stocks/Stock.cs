@@ -17,7 +17,7 @@ public class Stock : AuditableEntity<StockId>, IAggregateRoot
         Count = count;
     }
 
-    public static Stock CreateSize(ProductId productId, SizeId sizeId, int count)
+    public static Stock CreateStock(ProductId productId, SizeId sizeId, int count)
     {
         var stock = new Stock(new StockId(Guid.NewGuid()), productId, sizeId, count);
         StockValidator.ValidateStock(stock);

@@ -26,11 +26,11 @@ public class IntegrationEventsDispatcher : IIntegrationEventsDispatcher
         domainEntities.ForEach(e => e.Entity.IntegrationEvents.ToList()
             .ForEach(i => i.TenantId ??= currentUserService.TenantId));
 
-        domainEntities.ForEach(e => e.Entity.ClearIntegrationEvents());
-
         var integrationEvents = domainEntities
             .SelectMany(x => x.Entity.IntegrationEvents)
             .ToList();
+
+        domainEntities.ForEach(e => e.Entity.ClearIntegrationEvents());
 
         foreach (var integrationEvent in integrationEvents)
         {
