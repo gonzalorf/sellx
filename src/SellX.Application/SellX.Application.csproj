@@ -28,6 +28,10 @@
     <Folder Include="Products\Commands\AddSize\" />
     <Folder Include="Products\Commands\RemoveSize\" />
     <Folder Include="Products\EventHandlers\" />
+    <Folder Include="Stocks\" />
+    <Folder Include="Stocks\Commands\" />
+    <Folder Include="Stocks\EventHandlers\" />
+    <Folder Include="Stocks\Queries\" />
   </ItemGroup>
 
 </Project>

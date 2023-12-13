@@ -1,7 +1,6 @@
 ﻿using SellX.Domain.Products.Events;
 using SellX.Domain.Products.Validators;
 using SellX.Domain.SeedWork;
-using System.Text.RegularExpressions;
 
 namespace SellX.Domain.Products;
 public class Product : AuditableEntity<ProductId>, IAggregateRoot
