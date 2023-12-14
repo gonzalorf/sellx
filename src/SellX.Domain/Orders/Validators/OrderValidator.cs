@@ -1,6 +1,23 @@
-﻿namespace SellX.Domain.Orders;
+﻿using FluentValidation;
+using SellX.Domain.Orders.Exceptions;
 
-public class OrderValidator
+namespace SellX.Domain.Orders;
+
+public class OrderValidator : AbstractValidator<Order>
 {
+    public OrderValidator()
+    {
+        RuleFor(p => p.Count).GreaterThan(0);
+    }
 
+    public static void ValidateOrder(Order order)
+    {
+        var validator = new OrderValidator();
+        var validationResult = validator.Validate(order);
+
+        if (!validationResult.IsValid)
+        {
+            throw new OrderInvalidStateException(validationResult.ToString());
+        }
+    }
 }

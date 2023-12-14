@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Orders\Exceptions\" />
+    <Folder Include="Purchases\" />
     <Folder Include="Users\Validators\" />
   </ItemGroup>
 

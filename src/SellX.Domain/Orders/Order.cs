@@ -1,4 +1,5 @@
-﻿using SellX.Domain.Products;
+﻿using SellX.Domain.Orders.Events;
+using SellX.Domain.Products;
 using SellX.Domain.SeedWork;
 
 namespace SellX.Domain.Orders;
