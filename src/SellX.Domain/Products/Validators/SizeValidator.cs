@@ -8,7 +8,7 @@ public class SizeValidator : AbstractValidator<Size>
     {
         RuleFor(p => p.Name).NotEmpty().MaximumLength(24);
         RuleFor(p => p.Price).GreaterThanOrEqualTo(0);
-        RuleFor(p => p.PreviousPrice).GreaterThanOrEqualTo(0);
+        RuleFor(p => p.StrikethroughPrice).GreaterThanOrEqualTo(0);
     }
 
     public static void ValidateSize(Size product)

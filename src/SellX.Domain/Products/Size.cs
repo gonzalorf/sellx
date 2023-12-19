@@ -8,7 +8,7 @@ public class Size : Entity<SizeId>
     public string Name { get; private set; } = string.Empty;
     public string Code { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
-    public decimal PreviousPrice { get; private set; }
+    public decimal StrikethroughPrice { get; private set; }
 
     private Size() : base() { }
 
@@ -17,7 +17,7 @@ public class Size : Entity<SizeId>
         Name = name;
         Code = code;
         Price = price;
-        PreviousPrice = previousPrice;
+        StrikethroughPrice = previousPrice;
     }
 
     public static Size CreateSize(string name, string code, decimal price, decimal previousPrice)

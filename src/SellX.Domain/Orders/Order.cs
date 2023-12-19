@@ -9,7 +9,7 @@ public class Order : AuditableEntity<OrderId>, IAggregateRoot
     public DateOnly Date { get; private set;}
     public ProductId ProductId { get; private set; }
     public SizeId SizeId { get; private set; }
-    public int Count { get; private set; }
+    public int Quantity { get; private set; }
     public string Customer { get; private set; }
     public string CustomerEmail { get; private set; }
     public decimal Price { get; private set; }
@@ -21,7 +21,7 @@ public class Order : AuditableEntity<OrderId>, IAggregateRoot
         Date = date;
         ProductId = productId;
         SizeId = sizeId;
-        Count = count;
+        Quantity = count;
         Customer = customer;
         CustomerEmail = customerEmail;
         Price = price;

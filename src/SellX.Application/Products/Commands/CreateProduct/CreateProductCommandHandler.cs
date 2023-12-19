@@ -14,6 +14,7 @@ internal class CreateProductCommandHandler : ICommandHandler<CreateProductComman
 
     public async Task<ProductId> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
+        var sizes = request.Sizes.Select(s => Size.CreateSize(s.Name, s.Code, s.Price, s.StrikethroughPrice));
         var product = Product.CreateProduct(request.Name, request.Description, request.Price, request.PreviousPrice, request.Tags);
         await productRepository.Add(product);
         product.AddDomainEvent(new ProductCreatedEvent(product.Id));

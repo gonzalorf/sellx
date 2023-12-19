@@ -7,5 +7,13 @@ public record CreateProductCommand(
         string Description,
         decimal Price,
         decimal PreviousPrice,
-        string[] Tags
+        string[] Tags,
+        CreateProductCommandSize[] Sizes
     ) : CommandBase<ProductId>;
+
+public record CreateProductCommandSize(
+    string Name
+    , string Code
+    , decimal Price
+    , decimal StrikethroughPrice
+);
