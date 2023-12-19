@@ -12,17 +12,17 @@ public class Size : Entity<SizeId>
 
     private Size() : base() { }
 
-    private Size(SizeId id, string name, string code, decimal price, decimal previousPrice) : base(id)
+    private Size(SizeId id, string name, string code, decimal price, decimal strikethroughPrice) : base(id)
     {
         Name = name;
         Code = code;
         Price = price;
-        StrikethroughPrice = previousPrice;
+        StrikethroughPrice = strikethroughPrice;
     }
 
-    public static Size CreateSize(string name, string code, decimal price, decimal previousPrice)
+    public static Size CreateSize(string name, string code, decimal price, decimal strikethroughPrice)
     {
-        var size = new Size(new SizeId(Guid.NewGuid()), name, code, price, previousPrice);
+        var size = new Size(new SizeId(Guid.NewGuid()), name, code, price, strikethroughPrice);
         SizeValidator.ValidateSize(size);       
 
         return size;
