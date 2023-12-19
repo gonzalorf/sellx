@@ -5,5 +5,6 @@ public record ProductDto(
     string Name,
     string Description,
     decimal Price,
-    IReadOnlyCollection<string> Tags
+    decimal PreviousPrice,
+    string[] Tags
 );
