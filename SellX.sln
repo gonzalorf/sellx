@@ -5,15 +5,15 @@ VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7BA6F1EA-2A1F-43C5-976A-E90262D9FF5B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.Domain", "SellX.Domain\SellX.Domain.csproj", "{266506CA-AD5E-4F2E-AA0F-1E939EFBF480}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.Domain", "src\SellX.Domain\SellX.Domain.csproj", "{266506CA-AD5E-4F2E-AA0F-1E939EFBF480}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.Application", "SellX.Application\SellX.Application.csproj", "{6255AFBB-86EE-4083-8C04-9477C7E700BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.Application", "src\SellX.Application\SellX.Application.csproj", "{6255AFBB-86EE-4083-8C04-9477C7E700BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.Infrastructure", "SellX.Infrastructure\SellX.Infrastructure.csproj", "{46811874-37E3-443C-B04A-310923F6A865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.Infrastructure", "src\SellX.Infrastructure\SellX.Infrastructure.csproj", "{46811874-37E3-443C-B04A-310923F6A865}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.API", "SellX.API\SellX.API.csproj", "{B279250B-AE67-44DF-A1AD-74A09EAF624C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SellX.API", "src\SellX.API\SellX.API.csproj", "{B279250B-AE67-44DF-A1AD-74A09EAF624C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SellX.Web", "SellX.Web\SellX.Web.csproj", "{916A8FBD-F7B8-4D51-8928-94052178AF5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SellX.Web", "src\SellX.Web\SellX.Web.csproj", "{916A8FBD-F7B8-4D51-8928-94052178AF5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
