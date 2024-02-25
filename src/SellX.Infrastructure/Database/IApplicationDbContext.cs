@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SellX.Domain.Orders;
 using SellX.Domain.Products;
 using SellX.Domain.Stocks;
 using SellX.Domain.Tenants;
@@ -12,4 +13,5 @@ public interface IApplicationDbContext
     DbSet<Tenant> Tenants { get; set; }
     DbSet<Product> Products { get; set; }
     DbSet<Stock> Stocks { get; set; }
+    DbSet<Order> Orders { get; set; }
 }

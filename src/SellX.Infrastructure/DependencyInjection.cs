@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SellX.Application.Common.Services;
 using SellX.Application.Services;
+using SellX.Domain.Orders;
 using SellX.Domain.Products;
 using SellX.Domain.SeedWork;
 using SellX.Domain.Tenants;
@@ -11,6 +12,7 @@ using SellX.Infrastructure.Database;
 using SellX.Infrastructure.Database.Behaviors;
 using SellX.Infrastructure.Database.Interceptors;
 using SellX.Infrastructure.Domain;
+using SellX.Infrastructure.Domain.Orders;
 using SellX.Infrastructure.Domain.Parameters;
 using SellX.Infrastructure.Domain.Products;
 using SellX.Infrastructure.Domain.Tenants;
@@ -47,7 +49,8 @@ IConfiguration configuration)
         _ = services.AddScoped<IUserRepository, UserRepository>();
         _ = services.AddScoped<ITenantRepository, TenantRepository>();
         _ = services.AddScoped<IProductRepository, ProductRepository>();
-
+        _ = services.AddScoped<IOrderRepository, OrderRepository>();
+        
         _ = services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();
         _ = services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
         _ = services.AddScoped<IParameterRepository, ParameterRepository>();

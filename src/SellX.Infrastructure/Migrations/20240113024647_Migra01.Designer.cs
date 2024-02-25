@@ -12,8 +12,8 @@ using SellX.Infrastructure.Database;
 namespace SellX.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231210184847_Migra02")]
-    partial class Migra02
+    [Migration("20240113024647_Migra01")]
+    partial class Migra01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,7 +62,10 @@ namespace SellX.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("StrikethroughPrice")
+                        .HasColumnType("money");
 
                     b.Property<string>("Tags")
                         .IsRequired()
@@ -82,6 +85,96 @@ namespace SellX.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products", "dbo");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Products.Size", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long>("Order")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("money");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("StrikethroughPrice")
+                        .HasColumnType("money");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Sizes", "dbo");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Stocks.Stock", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long>("Order")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SizeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stocks", "dbo");
                 });
 
             modelBuilder.Entity("SellX.Domain.Tenants.Tenant", b =>
@@ -106,19 +199,19 @@ namespace SellX.Infrastructure.Migrations
                         {
                             Id = new Guid("00000001-0001-0001-0001-000000000001"),
                             Active = true,
-                            Name = "Cityplus Argentina"
+                            Name = "Gonzalo Tenant"
                         },
                         new
                         {
                             Id = new Guid("863e9564-4b31-409d-805f-88465b949f5a"),
                             Active = true,
-                            Name = "Municipalidad Norte"
+                            Name = "Store Norte"
                         },
                         new
                         {
                             Id = new Guid("1420a446-4d7b-415f-bb4f-7b8f6f29a349"),
                             Active = true,
-                            Name = "Municipalidad Sur"
+                            Name = "Store Sur"
                         });
                 });
 
@@ -172,12 +265,12 @@ namespace SellX.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4cc637ef-845e-4e5b-8d9b-c9a7e7c2f9da"),
+                            Id = new Guid("e661b0fd-610f-44f0-9d2f-b307a07badc8"),
                             Deleted = false,
-                            Email = "steve@apple.com",
-                            LastName = "Jobs",
-                            Login = "steve",
-                            Name = "Steve",
+                            Email = "gonzalorf@sellx.com",
+                            LastName = "Fernández",
+                            Login = "gonzalo",
+                            Name = "Gonzalo",
                             Order = 0L,
                             Password = "123",
                             Role = "Administrador",
@@ -185,7 +278,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("470571b0-857b-4383-878c-619596e6420f"),
+                            Id = new Guid("11d0ecfe-e7d1-4f7e-861a-66a6a3d267f7"),
                             Deleted = false,
                             Email = "sayala@music.com",
                             LastName = "Ayala",
@@ -198,7 +291,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6462f0fa-3755-4aa8-bda6-4a333eaafeed"),
+                            Id = new Guid("cdd1518a-c4fa-4646-9052-3d95ce459ee3"),
                             Deleted = false,
                             Email = "jcafrune@music.com",
                             LastName = "Cafrune",
@@ -263,6 +356,18 @@ namespace SellX.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OutboxMessages", "dbo");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Products.Size", b =>
+                {
+                    b.HasOne("SellX.Domain.Products.Product", null)
+                        .WithMany("Sizes")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Products.Product", b =>
+                {
+                    b.Navigation("Sizes");
                 });
 #pragma warning restore 612, 618
         }

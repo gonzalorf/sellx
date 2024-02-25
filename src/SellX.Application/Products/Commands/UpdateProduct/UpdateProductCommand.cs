@@ -8,6 +8,6 @@ public record UpdateProductCommand(
         string Name,
         string Description,
         decimal Price,
-        decimal PreviousPrice,
+        decimal StrikethroughPrice,
         string[] Tags
     ) : CommandBase;

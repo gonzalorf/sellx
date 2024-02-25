@@ -22,7 +22,8 @@ internal class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDt
             product.Name,
             product.Description,
             product.Price,
-            product.Tags
+            product.StrikethroughPrice,
+            product.Tags.ToArray()
         );
     }
 }

@@ -3,6 +3,6 @@ public record UpdateProductRequest(
         string Name,
         string Description,
         decimal Price,
-        decimal PreviousPrice,
+        decimal StrikethroughPrice,
         string[] Tags
     );

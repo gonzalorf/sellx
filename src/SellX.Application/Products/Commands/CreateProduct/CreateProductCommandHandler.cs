@@ -22,7 +22,7 @@ internal class CreateProductCommandHandler : ICommandHandler<CreateProductComman
             request.Name
             , request.Description
             , request.Price
-            , request.PreviousPrice
+            , request.StrikethroughPrice
             , request.Tags
             , sizes
             );

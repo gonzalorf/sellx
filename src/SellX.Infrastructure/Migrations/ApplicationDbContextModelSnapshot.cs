@@ -58,10 +58,10 @@ namespace SellX.Infrastructure.Migrations
                     b.Property<long>("Order")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("PreviousPrice")
+                    b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("StrikethroughPrice")
                         .HasColumnType("money");
 
                     b.Property<string>("Tags")
@@ -105,14 +105,14 @@ namespace SellX.Infrastructure.Migrations
                     b.Property<long>("Order")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("PreviousPrice")
-                        .HasColumnType("money");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("StrikethroughPrice")
+                        .HasColumnType("money");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uniqueidentifier");
@@ -262,7 +262,7 @@ namespace SellX.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("27b7ff16-596c-48de-a3ea-cd933c4ef784"),
+                            Id = new Guid("e661b0fd-610f-44f0-9d2f-b307a07badc8"),
                             Deleted = false,
                             Email = "gonzalorf@sellx.com",
                             LastName = "Fernández",
@@ -275,7 +275,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("73f349ec-5e70-4c72-a220-2a8a2298646f"),
+                            Id = new Guid("11d0ecfe-e7d1-4f7e-861a-66a6a3d267f7"),
                             Deleted = false,
                             Email = "sayala@music.com",
                             LastName = "Ayala",
@@ -288,7 +288,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0d4c0397-c361-46d1-a1e9-74ee2c072525"),
+                            Id = new Guid("cdd1518a-c4fa-4646-9052-3d95ce459ee3"),
                             Deleted = false,
                             Email = "jcafrune@music.com",
                             LastName = "Cafrune",

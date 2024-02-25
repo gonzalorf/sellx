@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Query;
 using SellX.Application.Usuarios.Services;
+using SellX.Domain.Orders;
 using SellX.Domain.Products;
 using SellX.Domain.SeedWork;
 using SellX.Domain.Stocks;
@@ -24,6 +25,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Stock> Stocks { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     public ApplicationDbContext(
         DbContextOptions options
