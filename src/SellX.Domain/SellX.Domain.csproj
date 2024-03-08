@@ -15,7 +15,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Purchases\" />
+    <Folder Include="Providers\Exceptions\" />
     <Folder Include="Users\Validators\" />
   </ItemGroup>
 </Project>
