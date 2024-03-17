@@ -1,6 +1,7 @@
 ﻿using SellX.Application.Configuration.Commands;
 using SellX.Domain.Products.Events;
 using SellX.Domain.Products;
+using SellX.Domain.Providers;
 
 namespace SellX.Application.Products.Commands.AddProduct;
 internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, ProductId>
@@ -23,6 +24,7 @@ internal class CreateProductCommandHandler : ICommandHandler<CreateProductComman
             , request.Description
             , request.Price
             , request.StrikethroughPrice
+            , new ProviderId(request.ProviderId)
             , request.Tags
             , sizes
             );

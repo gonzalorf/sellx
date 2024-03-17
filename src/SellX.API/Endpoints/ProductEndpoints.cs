@@ -2,11 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NanoBlogEngine.Application.Products.Queries.GetProduct;
+using SellX.Application.Products.Queries.GetProduct;
 using SellX.Application.Products.Commands.AddProduct;
 using SellX.Application.Products.Commands.DeleteProduct;
 using SellX.Application.Products.Commands.UpdateProduct;
 using SellX.Domain.Products;
+using SellX.Domain.Providers;
 
 namespace SellX.API.Endpoints;
 
@@ -21,6 +22,7 @@ public class ProductEndpoints : ICarterModule
         _ = group.MapPut("", UpdateProduct);
         _ = group.MapDelete("", RemoveProduct);
         _ = group.MapGet("", GetProduct);
+        _ = group.MapGet("get-products", GetProducts);
     }
 
     [Authorize]
@@ -57,5 +59,11 @@ public class ProductEndpoints : ICarterModule
     private static async Task<IResult> GetProduct(Guid id, ISender sender)
     {
         return Results.Ok(await sender.Send(new GetProductQuery(new ProductId(id))));
+    }
+
+    [Authorize]
+    private static async Task<IResult> GetProducts(Guid? providerId, ISender sender)
+    {
+        return Results.Ok(await sender.Send(new GetProductsQuery(providerId)));
     }
 }

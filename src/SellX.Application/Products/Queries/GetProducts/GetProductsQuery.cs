@@ -1,7 +1,7 @@
 ﻿using SellX.Application.Configuration.Queries;
 using SellX.Application.Products.Dtos;
-using SellX.Domain.Products;
+using SellX.Domain.Providers;
 
 namespace SellX.Application.Products.Queries.GetProduct;
 
-public record GetProductQuery(ProductId ProductId) : IQuery<ProductDto>;
+public record GetProductsQuery(Guid? ProviderId) : IQuery<IEnumerable<ProductDto>>;

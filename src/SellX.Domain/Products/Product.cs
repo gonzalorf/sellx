@@ -1,5 +1,6 @@
 ﻿using SellX.Domain.Products.Events;
 using SellX.Domain.Products.Validators;
+using SellX.Domain.Providers;
 using SellX.Domain.SeedWork;
 
 namespace SellX.Domain.Products;
@@ -9,6 +10,8 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
     public string Description { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
     public decimal StrikethroughPrice { get; private set; }
+    public ProviderId ProviderId { get; private set; }
+    public Provider Provider { get; private set; }
 
     private readonly List<string> tags = new();
     public IReadOnlyCollection<string> Tags => tags.AsReadOnly();
@@ -18,18 +21,19 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
 
     private Product() : base() { }
 
-    private Product(ProductId id, string name, string description, decimal price, decimal strikethroughPrice, string[] tags) : base(id)
+    private Product(ProductId id, string name, string description, decimal price, decimal strikethroughPrice, ProviderId providerId, string[] tags) : base(id)
     {
         Name = name;
         Description = description;
         Price = price;
         StrikethroughPrice = strikethroughPrice;
+        ProviderId = providerId;
         this.tags = new(tags);
     }
 
-    public static Product CreateProduct(string name, string description, decimal price, decimal strikethroughPrice, string[] tags, Size[] sizes)
+    public static Product CreateProduct(string name, string description, decimal price, decimal strikethroughPrice, ProviderId providerId, string[] tags, Size[] sizes)
     {
-        var product = new Product(new ProductId(Guid.NewGuid()), name, description, price, strikethroughPrice, tags);
+        var product = new Product(new ProductId(Guid.NewGuid()), name, description, price, strikethroughPrice, providerId, tags);
 
         foreach(var size in sizes) { product.AddSize(size); }
 

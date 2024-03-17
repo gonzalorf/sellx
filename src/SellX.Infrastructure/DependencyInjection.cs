@@ -5,6 +5,7 @@ using SellX.Application.Common.Services;
 using SellX.Application.Services;
 using SellX.Domain.Orders;
 using SellX.Domain.Products;
+using SellX.Domain.Providers;
 using SellX.Domain.SeedWork;
 using SellX.Domain.Tenants;
 using SellX.Domain.Users;
@@ -15,6 +16,7 @@ using SellX.Infrastructure.Domain;
 using SellX.Infrastructure.Domain.Orders;
 using SellX.Infrastructure.Domain.Parameters;
 using SellX.Infrastructure.Domain.Products;
+using SellX.Infrastructure.Domain.Providers;
 using SellX.Infrastructure.Domain.Tenants;
 using SellX.Infrastructure.Domain.Users;
 using SellX.Infrastructure.Outbox;
@@ -48,6 +50,7 @@ IConfiguration configuration)
 
         _ = services.AddScoped<IUserRepository, UserRepository>();
         _ = services.AddScoped<ITenantRepository, TenantRepository>();
+        _ = services.AddScoped<IProviderRepository, ProviderRepository>();
         _ = services.AddScoped<IProductRepository, ProductRepository>();
         _ = services.AddScoped<IOrderRepository, OrderRepository>();
         

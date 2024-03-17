@@ -6,4 +6,5 @@ public interface IProviderRepository
     void Remove(Provider provider);
     void Update(Provider provider);
     Task<Provider?> GetById(ProviderId id);
+    Task<IEnumerable<Provider>> GetAll();
 }

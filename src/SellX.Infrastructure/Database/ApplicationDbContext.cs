@@ -1,15 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Query;
 using SellX.Application.Usuarios.Services;
 using SellX.Domain.Orders;
 using SellX.Domain.Products;
+using SellX.Domain.Providers;
 using SellX.Domain.SeedWork;
 using SellX.Domain.Stocks;
 using SellX.Domain.Tenants;
 using SellX.Domain.Users;
 using SellX.Infrastructure.Database.Interceptors;
 using SellX.Infrastructure.Domain.Parameters;
+using System.CodeDom;
+using System.Data;
+using System.Data.Common;
 using System.Linq.Expressions;
 
 namespace SellX.Infrastructure.Database;
@@ -23,9 +28,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Tenant> Tenants { get; set; }
+    public DbSet<Provider> Providers { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Stock> Stocks { get; set; }
     public DbSet<Order> Orders { get; set; }
+
+    public DbConnection Connection => Database.GetDbConnection();
 
     public ApplicationDbContext(
         DbContextOptions options
@@ -137,6 +145,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
         _ = configurationBuilder.Properties<string>()
             .HaveMaxLength(256);
+    }
+
+    public System.Data.IDataParameter CreateParameter(string name, object value)
+    {
+        return new SqlParameter{ ParameterName = name, Value = value };
     }
 }
 

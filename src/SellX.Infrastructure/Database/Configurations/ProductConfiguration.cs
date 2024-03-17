@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SellX.Domain.Products;
 using SellX.Domain.SeedWork;
 using SellX.Infrastructure.Database.Converters;
+using SellX.Domain.Providers;
 
 namespace SellX.Infrastructure.Database.Configurations;
 internal class ProductConfiguration : IEntityTypeConfiguration<Product>
@@ -24,6 +25,9 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         _ = builder.Property(t => t.Price).HasColumnType("money");
         _ = builder.Property(t => t.StrikethroughPrice).HasColumnType("money");
+
+        _ = builder.Property(e => e.ProviderId)
+            .HasConversion(id => id.Value, value => new ProviderId(value));
 
         _ = builder.Property(p => p.Tags)
             .HasMaxLength(256)

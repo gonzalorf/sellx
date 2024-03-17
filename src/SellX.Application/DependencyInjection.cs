@@ -15,6 +15,8 @@ public static class DependencyInjection
 
         _ = services.AddValidatorsFromAssembly(assembly);
 
+        _ = services.AddAutoMapper(typeof(MappingProfile));
+
         return services;
     }
 }

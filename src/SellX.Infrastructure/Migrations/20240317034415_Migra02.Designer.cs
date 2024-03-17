@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SellX.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using SellX.Infrastructure.Database;
 namespace SellX.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240317034415_Migra02")]
+    partial class Migra02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,62 +196,6 @@ namespace SellX.Infrastructure.Migrations
                     b.ToTable("Sizes", "dbo");
                 });
 
-            modelBuilder.Entity("SellX.Domain.Providers.Provider", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("BankAccountAlias")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("BankAccountNumber")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<long>("Order")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Providers", "dbo");
-                });
-
             modelBuilder.Entity("SellX.Domain.Stocks.Stock", b =>
                 {
                     b.Property<Guid>("Id")
@@ -387,7 +334,7 @@ namespace SellX.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e7769289-eb4e-47f4-ae62-4861347dfd81"),
+                            Id = new Guid("871c5f71-30e3-406e-9f07-c64ad88b3877"),
                             Deleted = false,
                             Email = "gonzalorf@sellx.com",
                             LastName = "Fernández",
@@ -400,7 +347,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("43b29311-77cc-4b44-bee8-17643844d9e2"),
+                            Id = new Guid("86422802-3ce6-4030-a87f-2cb1112f1a16"),
                             Deleted = false,
                             Email = "sayala@music.com",
                             LastName = "Ayala",
@@ -413,7 +360,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cbaca590-457d-456d-b9af-6b994155ab6c"),
+                            Id = new Guid("b31b831e-2e30-4696-8cf6-d7deb234c7a4"),
                             Deleted = false,
                             Email = "jcafrune@music.com",
                             LastName = "Cafrune",
