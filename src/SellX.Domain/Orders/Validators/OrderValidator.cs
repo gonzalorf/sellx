@@ -7,7 +7,7 @@ public class OrderValidator : AbstractValidator<Order>
 {
     public OrderValidator()
     {
-        RuleFor(p => p.Quantity).GreaterThan(0);
+        // NO RULES FOR NOW
     }
 
     public static void ValidateOrder(Order order)
