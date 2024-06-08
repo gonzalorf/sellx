@@ -12,7 +12,7 @@ using SellX.Infrastructure.Database;
 namespace SellX.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240113024647_Migra01")]
+    [Migration("20240608230519_Migra01")]
     partial class Migra01
     {
         /// <inheritdoc />
@@ -20,10 +20,105 @@ namespace SellX.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("SellX.Domain.Orders.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Customer")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("CustomerEmail")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("CustomerTaxId")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long>("Order")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders", "dbo");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Orders.OrderDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("Order")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SizeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails", "dbo");
+                });
 
             modelBuilder.Entity("SellX.Domain.Products.Product", b =>
                 {
@@ -64,6 +159,9 @@ namespace SellX.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
+                    b.Property<Guid>("ProviderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("StrikethroughPrice")
                         .HasColumnType("money");
 
@@ -83,6 +181,8 @@ namespace SellX.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProviderId");
 
                     b.ToTable("Products", "dbo");
                 });
@@ -125,6 +225,62 @@ namespace SellX.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Sizes", "dbo");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Providers.Provider", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BankAccountAlias")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("BankAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<long>("Order")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Providers", "dbo");
                 });
 
             modelBuilder.Entity("SellX.Domain.Stocks.Stock", b =>
@@ -265,7 +421,7 @@ namespace SellX.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e661b0fd-610f-44f0-9d2f-b307a07badc8"),
+                            Id = new Guid("3b3a8637-e61c-4eb2-a4f7-83988dfb0107"),
                             Deleted = false,
                             Email = "gonzalorf@sellx.com",
                             LastName = "Fernández",
@@ -278,7 +434,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("11d0ecfe-e7d1-4f7e-861a-66a6a3d267f7"),
+                            Id = new Guid("7e46d2d5-830c-42f5-95af-5e2ea99f0812"),
                             Deleted = false,
                             Email = "sayala@music.com",
                             LastName = "Ayala",
@@ -291,7 +447,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cdd1518a-c4fa-4646-9052-3d95ce459ee3"),
+                            Id = new Guid("a9392cb6-8499-44a6-941f-2330e13e0ef9"),
                             Deleted = false,
                             Email = "jcafrune@music.com",
                             LastName = "Cafrune",
@@ -358,11 +514,34 @@ namespace SellX.Infrastructure.Migrations
                     b.ToTable("OutboxMessages", "dbo");
                 });
 
+            modelBuilder.Entity("SellX.Domain.Orders.OrderDetail", b =>
+                {
+                    b.HasOne("SellX.Domain.Orders.Order", null)
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Products.Product", b =>
+                {
+                    b.HasOne("SellX.Domain.Providers.Provider", "Provider")
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Provider");
+                });
+
             modelBuilder.Entity("SellX.Domain.Products.Size", b =>
                 {
                     b.HasOne("SellX.Domain.Products.Product", null)
                         .WithMany("Sizes")
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Orders.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("SellX.Domain.Products.Product", b =>

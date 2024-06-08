@@ -4,10 +4,15 @@ using SellX.Domain.Products;
 
 namespace SellX.Application.Orders.Commands.PlaceOrder;
 public record PlaceOrderCommand(
-    ProductId ProductId
-    , SizeId SizeId
-    , int Count
-    , string Customer
+    string Customer
     , string CustomerEmail
-    , decimal Price
+    , string CustomerTaxId
+    , PlaceOrderCommandDetail[] Details
     ) : CommandBase<OrderId>;
+
+public record PlaceOrderCommandDetail(
+    Guid ProductId
+    , Guid SizeId
+    , int Count
+    , decimal Price
+    );

@@ -1,6 +1,7 @@
 ﻿using SellX.Application.Configuration.Commands;
 using SellX.Domain.Orders;
 using SellX.Domain.Orders.Events;
+using SellX.Domain.Products;
 
 namespace SellX.Application.Orders.Commands.PlaceOrder;
 internal class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand, OrderId>
@@ -15,13 +16,18 @@ internal class PlaceOrderCommandHandler : ICommandHandler<PlaceOrderCommand, Ord
     public async Task<OrderId> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
     {
         var order = Order.CreateOrder(DateOnly.FromDateTime(DateTime.Today)
-            , request.ProductId
-            , request.SizeId
-            , request.Count
             , request.Customer
             , request.CustomerEmail
-            , request.Price);
+            , request.CustomerTaxId);
         
+        foreach (var detail in request.Details)
+        {
+            order.AddOrderDetail(new ProductId(detail.ProductId)
+                , new SizeId(detail.SizeId)
+                , detail.Count
+                , detail.Price);
+        }
+
         await orderRepository.Add(order);
         order.AddDomainEvent(new OrderPlacedEvent(order.Id));
         return order.Id;

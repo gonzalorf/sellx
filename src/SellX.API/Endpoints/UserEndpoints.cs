@@ -13,6 +13,7 @@ public class UserEndpoints : ICarterModule
 
         _ = group.MapPost("login", Login);
         //group.MapPost("logout", Logout);
+
     }
 
     private static async Task<IResult> Login([FromBody] LoginCommand command, ISender sender)

@@ -45,6 +45,11 @@ namespace SellX.Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("CustomerTaxId")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -61,6 +66,35 @@ namespace SellX.Infrastructure.Migrations
                     b.Property<long>("Order")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders", "dbo");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Orders.OrderDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("Order")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -76,16 +110,11 @@ namespace SellX.Infrastructure.Migrations
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Orders", "dbo");
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails", "dbo");
                 });
 
             modelBuilder.Entity("SellX.Domain.Products.Product", b =>
@@ -149,6 +178,8 @@ namespace SellX.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProviderId");
 
                     b.ToTable("Products", "dbo");
                 });
@@ -387,7 +418,7 @@ namespace SellX.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e7769289-eb4e-47f4-ae62-4861347dfd81"),
+                            Id = new Guid("3b3a8637-e61c-4eb2-a4f7-83988dfb0107"),
                             Deleted = false,
                             Email = "gonzalorf@sellx.com",
                             LastName = "Fernández",
@@ -400,7 +431,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("43b29311-77cc-4b44-bee8-17643844d9e2"),
+                            Id = new Guid("7e46d2d5-830c-42f5-95af-5e2ea99f0812"),
                             Deleted = false,
                             Email = "sayala@music.com",
                             LastName = "Ayala",
@@ -413,7 +444,7 @@ namespace SellX.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cbaca590-457d-456d-b9af-6b994155ab6c"),
+                            Id = new Guid("a9392cb6-8499-44a6-941f-2330e13e0ef9"),
                             Deleted = false,
                             Email = "jcafrune@music.com",
                             LastName = "Cafrune",
@@ -480,11 +511,34 @@ namespace SellX.Infrastructure.Migrations
                     b.ToTable("OutboxMessages", "dbo");
                 });
 
+            modelBuilder.Entity("SellX.Domain.Orders.OrderDetail", b =>
+                {
+                    b.HasOne("SellX.Domain.Orders.Order", null)
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Products.Product", b =>
+                {
+                    b.HasOne("SellX.Domain.Providers.Provider", "Provider")
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Provider");
+                });
+
             modelBuilder.Entity("SellX.Domain.Products.Size", b =>
                 {
                     b.HasOne("SellX.Domain.Products.Product", null)
                         .WithMany("Sizes")
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SellX.Domain.Orders.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("SellX.Domain.Products.Product", b =>

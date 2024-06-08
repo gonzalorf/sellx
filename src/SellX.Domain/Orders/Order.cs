@@ -9,22 +9,25 @@ public class Order : AuditableEntity<OrderId>, IAggregateRoot
     public DateOnly Date { get; private set;}
     public string Customer { get; private set; }
     public string CustomerEmail { get; private set; }
-    
+    public string CustomerTaxId { get; private set; }
+
+
     private readonly List<OrderDetail> orderDetails = new();
     public IReadOnlyCollection<OrderDetail> OrderDetails => orderDetails.AsReadOnly();
 
     private Order(){}
 
-    private Order(OrderId id, DateOnly date, string customer, string customerEmail) : base(id)
+    private Order(OrderId id, DateOnly date, string customer, string customerEmail, string customerTaxId) : base(id)
     {
         Date = date;
         Customer = customer;
         CustomerEmail = customerEmail;
+        CustomerTaxId = customerTaxId;
     }
 
-    public static Order CreateOrder(DateOnly date, string customer, string customerEmail)
+    public static Order CreateOrder(DateOnly date, string customer, string customerEmail, string customerTaxId)
     {
-        var order = new Order(new OrderId(Guid.NewGuid()), date, customer, customerEmail);
+        var order = new Order(new OrderId(Guid.NewGuid()), date, customer, customerEmail, customerTaxId);
         OrderValidator.ValidateOrder(order);
         order.AddDomainEvent(new OrderPlacedEvent(order.Id));
 
