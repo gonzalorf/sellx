@@ -4,10 +4,10 @@ using SellX.Domain.Products;
 namespace SellX.Application.Products.Commands.AddProduct;
 public record CreateProductCommand(
         string Name,
+        string Brand,
         string Description,
         decimal Price,
         decimal StrikethroughPrice,
-        Guid ProviderId,
         string[] Tags,
         CreateProductCommandSize[] Sizes
     ) : CommandBase<ProductId>;

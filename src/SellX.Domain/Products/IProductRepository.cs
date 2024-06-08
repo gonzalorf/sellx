@@ -7,6 +7,5 @@ public interface IProductRepository
     void Remove(Product product);
     void Update(Product product);
     Task<Product?> GetById(ProductId id);
-    Task<IEnumerable<Product>> GetByProviderId(ProviderId providerId);
     Task<IEnumerable<Product>> GetAll();
 }

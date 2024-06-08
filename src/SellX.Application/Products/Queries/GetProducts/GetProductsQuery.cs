@@ -4,4 +4,4 @@ using SellX.Domain.Providers;
 
 namespace SellX.Application.Products.Queries.GetProduct;
 
-public record GetProductsQuery(Guid? ProviderId) : IQuery<IEnumerable<ProductDto>>;
+public record GetProductsQuery() : IQuery<IEnumerable<ProductDto>>;

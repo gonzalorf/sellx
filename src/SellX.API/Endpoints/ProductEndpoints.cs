@@ -38,6 +38,7 @@ public class ProductEndpoints : ICarterModule
         var command = new UpdateProductCommand(
                 new ProductId(id)
                 , request.Name
+                , request.Brand
                 , request.Description
                 , request.Price
                 , request.StrikethroughPrice
@@ -62,8 +63,8 @@ public class ProductEndpoints : ICarterModule
     }
 
     [Authorize]
-    private static async Task<IResult> GetProducts(Guid? providerId, ISender sender)
+    private static async Task<IResult> GetProducts(ISender sender)
     {
-        return Results.Ok(await sender.Send(new GetProductsQuery(providerId)));
+        return Results.Ok(await sender.Send(new GetProductsQuery()));
     }
 }

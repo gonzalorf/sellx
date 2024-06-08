@@ -6,6 +6,7 @@ namespace SellX.Application.Products.Commands.UpdateProduct;
 public record UpdateProductCommand(
         ProductId ProductId,
         string Name,
+        string Brand,
         string Description,
         decimal Price,
         decimal StrikethroughPrice,

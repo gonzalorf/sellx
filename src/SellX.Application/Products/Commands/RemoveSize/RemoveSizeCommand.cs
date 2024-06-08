@@ -1,6 +1,9 @@
-﻿namespace SellX.Application;
+﻿using SellX.Application.Configuration.Commands;
+using SellX.Domain.Products;
 
-public class RemoveSizeCommand
-{
+namespace SellX.Application.Products.Commands.RemoveSize;
 
-}
+public record RemoveSizeCommand(
+    Guid ProductId
+    , Guid SizeId
+) : CommandBase;

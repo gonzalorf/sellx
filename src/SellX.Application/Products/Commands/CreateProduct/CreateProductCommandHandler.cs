@@ -21,13 +21,14 @@ internal class CreateProductCommandHandler : ICommandHandler<CreateProductComman
             
         var product = Product.CreateProduct(
             request.Name
+            , request.Brand
             , request.Description
             , request.Price
             , request.StrikethroughPrice
-            , new ProviderId(request.ProviderId)
             , request.Tags
             , sizes
             );
+
         await productRepository.Add(product);
         product.AddDomainEvent(new ProductCreatedEvent(product.Id));
         return product.Id;

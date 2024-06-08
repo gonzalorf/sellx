@@ -18,13 +18,6 @@ internal class GetProductsQueryHandler : IQueryHandler<GetProductsQuery, IEnumer
 
     public async Task<IEnumerable<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        if(request.ProviderId is not null)
-        {
-            return mapper.Map<IEnumerable<ProductDto>>(await productRepository.GetByProviderId(new ProviderId(request.ProviderId.Value)));
-        }
-        else
-        {
-            return mapper.Map<IEnumerable<ProductDto>>(await productRepository.GetAll());
-        }
+        return mapper.Map<IEnumerable<ProductDto>>(await productRepository.GetAll());
     }
 }

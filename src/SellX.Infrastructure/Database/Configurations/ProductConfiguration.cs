@@ -25,10 +25,7 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         _ = builder.Property(t => t.Price).HasColumnType("money");
         _ = builder.Property(t => t.StrikethroughPrice).HasColumnType("money");
-
-        _ = builder.Property(e => e.ProviderId)
-            .HasConversion(id => id.Value, value => new ProviderId(value));
-
+                
         _ = builder.Property(p => p.Tags)
             .HasMaxLength(256)
             .IsRequired()

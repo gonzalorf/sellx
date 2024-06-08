@@ -22,18 +22,12 @@ public class ProductRepository : IProductRepository
     {
         return await context.Products
         .Include(p => p.Sizes)
-        .Include(p => p.Provider)
         .ToListAsync();
     }
 
     public async Task<Product?> GetById(ProductId id)
     {
         return await context.Products.SingleAsync(p => p.Id == id);
-    }
-
-    public async Task<IEnumerable<Product>> GetByProviderId(ProviderId providerId)
-    {
-        return await context.Products.Where(p => p.ProviderId == providerId) .ToListAsync();
     }
 
     public void Remove(Product product)

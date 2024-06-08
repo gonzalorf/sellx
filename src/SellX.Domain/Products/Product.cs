@@ -7,12 +7,11 @@ namespace SellX.Domain.Products;
 public class Product : AuditableEntity<ProductId>, IAggregateRoot
 {
     public string Name { get; private set; } = string.Empty;
+    public string Brand { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
     public decimal StrikethroughPrice { get; private set; }
-    public ProviderId ProviderId { get; private set; }
-    public Provider Provider { get; private set; }
-
+    
     private readonly List<string> tags = new();
     public IReadOnlyCollection<string> Tags => tags.AsReadOnly();
 
@@ -21,19 +20,19 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
 
     private Product() : base() { }
 
-    private Product(ProductId id, string name, string description, decimal price, decimal strikethroughPrice, ProviderId providerId, string[] tags) : base(id)
+    private Product(ProductId id, string name, string brand, string description, decimal price, decimal strikethroughPrice, string[] tags) : base(id)
     {
         Name = name;
+        Brand = brand;
         Description = description;
         Price = price;
         StrikethroughPrice = strikethroughPrice;
-        ProviderId = providerId;
         this.tags = new(tags);
     }
 
-    public static Product CreateProduct(string name, string description, decimal price, decimal strikethroughPrice, ProviderId providerId, string[] tags, Size[] sizes)
+    public static Product CreateProduct(string name, string brand, string description, decimal price, decimal strikethroughPrice, string[] tags, Size[] sizes)
     {
-        var product = new Product(new ProductId(Guid.NewGuid()), name, description, price, strikethroughPrice, providerId, tags);
+        var product = new Product(new ProductId(Guid.NewGuid()), name, brand, description, price, strikethroughPrice, tags);
 
         foreach(var size in sizes) { product.AddSize(size); }
 
@@ -43,9 +42,10 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
         return product;
     }
 
-    public void UpdateProperties(string name, string description, decimal price, decimal strikethroughPrice, string[] tags)
+    public void UpdateProperties(string name, string brand, string description, decimal price, decimal strikethroughPrice, string[] tags)
     {
         Name = name;
+        Brand = brand;
         Description = description;
         Price = price;
         StrikethroughPrice = strikethroughPrice;
