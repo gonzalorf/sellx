@@ -15,7 +15,7 @@ namespace SellX.Application.Products.Handlers.AddSize
 
         public async Task<SizeId> Handle(AddSizeCommand request, CancellationToken cancellationToken)
         {
-            var product = await productRepository.GetById(new ProductId(request.ProductId));
+            var product = await productRepository.GetById(request.ProductId);
 
             var size = Size.CreateSize(request.Name, request.Code, request.Price, request.StrikethroughPrice);
             product.AddSize(size);

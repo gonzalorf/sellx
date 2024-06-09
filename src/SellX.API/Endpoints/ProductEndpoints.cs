@@ -8,6 +8,8 @@ using SellX.Application.Products.Commands.DeleteProduct;
 using SellX.Application.Products.Commands.UpdateProduct;
 using SellX.Domain.Products;
 using SellX.Domain.Providers;
+using SellX.Application.Products.Commands.AddSize;
+using SellX.Application.Products.Commands.RemoveSize;
 
 namespace SellX.API.Endpoints;
 
@@ -20,6 +22,8 @@ public class ProductEndpoints : ICarterModule
 
         _ = group.MapPost("", CreateProduct);
         _ = group.MapPut("", UpdateProduct);
+        _ = group.MapPut("add-size", AddSize);
+        _ = group.MapPut("remove-size", RemoveSize);
         _ = group.MapDelete("", RemoveProduct);
         _ = group.MapGet("", GetProduct);
         _ = group.MapGet("get-products", GetProducts);
@@ -43,6 +47,33 @@ public class ProductEndpoints : ICarterModule
                 , request.Price
                 , request.StrikethroughPrice
                 , request.Tags
+                );
+
+        await sender.Send(command);
+        return Results.Ok();
+    }
+
+    [Authorize]
+    private static async Task<IResult> AddSize(Guid id, [FromBody] AddSizeRequest request, ISender sender)
+    {
+        var command = new AddSizeCommand(
+                new ProductId(id)
+                , request.Name
+                , request.Code
+                , request.Price
+                , request.StrikethroughPrice
+                );
+
+        await sender.Send(command);
+        return Results.Ok();
+    }
+
+    [Authorize]
+    private static async Task<IResult> RemoveSize(Guid id, [FromBody] Guid sizeId, ISender sender)
+    {
+        var command = new RemoveSizeCommand(
+                new ProductId(id)
+                , new SizeId(sizeId)
                 );
 
         await sender.Send(command);

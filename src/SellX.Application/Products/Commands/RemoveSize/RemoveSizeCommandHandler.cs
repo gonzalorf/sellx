@@ -15,8 +15,8 @@ namespace SellX.Application.Products.Handlers.RemoveSize
 
         public async Task Handle(RemoveSizeCommand command, CancellationToken cancellationToken)
         {
-            var product = await productRepository.GetById(new ProductId(command.ProductId));
-            var size = product.Sizes.SingleOrDefault(s => s.Id == new SizeId(command.SizeId));
+            var product = await productRepository.GetById(command.ProductId);
+            var size = product.Sizes.SingleOrDefault(s => s.Id == command.SizeId);
 
             product.RemoveSize(size);
 

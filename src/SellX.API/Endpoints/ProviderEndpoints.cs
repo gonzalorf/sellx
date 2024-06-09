@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SellX.Application.Providers.Commands.CreateProvider;
+using SellX.Application.Providers.Commands.RemoveProvider;
 using SellX.Application.Providers.Commands.UpdateProvider;
 using SellX.Application.Providers.Queries.GetProvider;
 using SellX.Domain.Providers;
@@ -18,7 +19,7 @@ public class ProviderEndpoints : ICarterModule
 
         _ = group.MapPost("", CreateProvider);
         _ = group.MapPut("", UpdateProvider);
-        // _ = group.MapDelete("", RemoveProvider);
+        _ = group.MapDelete("", RemoveProvider);
         _ = group.MapGet("", GetProviders);
     }
 
@@ -43,12 +44,12 @@ public class ProviderEndpoints : ICarterModule
         return Results.Ok();
     }
 
-    // [Authorize]
-    // private static async Task<IResult> RemoveProvider([FromQuery] Guid id, ISender sender)
-    // {
-    //     await sender.Send(new RemoveProviderCommand(new ProviderId(id)));
-    //     return Results.Ok();
-    // }
+    [Authorize]
+    private static async Task<IResult> RemoveProvider([FromQuery] Guid id, ISender sender)
+    {
+        await sender.Send(new RemoveProviderCommand(new ProviderId(id)));
+        return Results.Ok();
+    }
 
     [Authorize]
     private static async Task<IResult> GetProviders(ISender sender)
