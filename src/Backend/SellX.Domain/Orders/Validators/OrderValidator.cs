@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SellX.Domain.Orders.Exceptions;
 
-namespace SellX.Domain.Orders;
+namespace SellX.Domain.Orders.Validators;
 
 public class OrderValidator : AbstractValidator<Order>
 {

@@ -1,19 +1,19 @@
 ﻿using FluentValidation;
 using SellX.Domain.Orders.Exceptions;
 
-namespace SellX.Domain.Orders;
+namespace SellX.Domain.Orders.Validators;
 
-public class OrderDetailValidator : AbstractValidator<OrderDetail>
+public class OrderDetailValidator : AbstractValidator<OrderItem>
 {
     public OrderDetailValidator()
     {
         RuleFor(p => p.Quantity).GreaterThan(0);
     }
 
-    public static void ValidateOrderDetail(OrderDetail orderDetail)
+    public static void ValidateOrderDetail(OrderItem orderItem)
     {
         var validator = new OrderDetailValidator();
-        var validationResult = validator.Validate(orderDetail);
+        var validationResult = validator.Validate(orderItem);
 
         if (!validationResult.IsValid)
         {

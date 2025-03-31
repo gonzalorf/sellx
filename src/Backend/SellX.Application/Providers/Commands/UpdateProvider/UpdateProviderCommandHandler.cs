@@ -16,7 +16,7 @@ internal class UpdateProviderCommandHandler : ICommandHandler<UpdateProviderComm
     {
         var provider = await providerRepository.GetById(request.ProviderId) ?? throw new ProviderNotFoundException(request.ProviderId);
 
-        provider.UpdateProperties(request.Name, request.BankAccountNumber, request.BankAccountAlias);
+        provider.Update(request.Name, request.BankAccountNumber, request.BankAccountAlias);
 
         providerRepository.Update(provider);
     }

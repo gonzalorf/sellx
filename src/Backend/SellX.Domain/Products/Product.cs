@@ -1,7 +1,7 @@
 ﻿using SellX.Domain.Products.Events;
 using SellX.Domain.Products.Validators;
-using SellX.Domain.Providers;
 using SellX.Domain.SeedWork;
+using SellX.Domain.Variants;
 
 namespace SellX.Domain.Products;
 public class Product : AuditableEntity<ProductId>, IAggregateRoot
@@ -9,18 +9,19 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
     public string Name { get; private set; } = string.Empty;
     public string Brand { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
+    public ProductType ProductType { get; private set; } = null!;
     public decimal Price { get; private set; }
     public decimal StrikethroughPrice { get; private set; }
     
     private readonly List<string> tags = new();
     public IReadOnlyCollection<string> Tags => tags.AsReadOnly();
 
-    private readonly List<Size> sizes = new();
-    public IReadOnlyCollection<Size> Sizes => sizes.AsReadOnly();
+    private readonly List<ProductVariant> productVariants = new();
+    public IReadOnlyCollection<ProductVariant> ProductVariants => productVariants.AsReadOnly();
 
     private Product() : base() { }
 
-    private Product(ProductId id, string name, string brand, string description, decimal price, decimal strikethroughPrice, string[] tags) : base(id)
+    private Product(ProductId id, string name, string brand, string description, ProductType productType, decimal price, decimal strikethroughPrice, string[] tags) : base(id)
     {
         Name = name;
         Brand = brand;
@@ -28,13 +29,12 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
         Price = price;
         StrikethroughPrice = strikethroughPrice;
         this.tags = new(tags);
+        ProductType = productType;
     }
 
-    public static Product CreateProduct(string name, string brand, string description, decimal price, decimal strikethroughPrice, string[] tags, Size[] sizes)
+    public static Product CreateProduct(string name, string brand, string description, ProductType productType, decimal price, decimal strikethroughPrice, string[] tags)
     {
-        var product = new Product(new ProductId(Guid.NewGuid()), name, brand, description, price, strikethroughPrice, tags);
-
-        foreach(var size in sizes) { product.AddSize(size); }
+        var product = new Product(new ProductId(Guid.NewGuid()), name, brand, description, productType, price, strikethroughPrice, tags);
 
         ProductValidator.ValidateProduct(product);
         product.AddDomainEvent(new ProductCreatedEvent(product.Id));
@@ -42,11 +42,12 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
         return product;
     }
 
-    public void UpdateProperties(string name, string brand, string description, decimal price, decimal strikethroughPrice, string[] tags)
+    public void UpdateProperties(string name, string brand, string description, ProductType productType, decimal price, decimal strikethroughPrice, string[] tags)
     {
         Name = name;
         Brand = brand;
         Description = description;
+        ProductType = productType;
         Price = price;
         StrikethroughPrice = strikethroughPrice;
         this.tags.Clear();
@@ -55,31 +56,16 @@ public class Product : AuditableEntity<ProductId>, IAggregateRoot
         ProductValidator.ValidateProduct(this);
     }
 
-    public Size AddSize(
-        string name
-        , string code
-        , decimal price
-        , decimal strikethroughPrice)
+    public ProductVariant AddProductVariant(ProductVariant productVariant)
     {
-        var size = Size.CreateSize(name, code, price, strikethroughPrice);
-        sizes.Add(size);
-        AddDomainEvent(new SizeAddedEvent(Id, size.Id));
+        productVariants.Add(productVariant);
+        AddDomainEvent(new ProductVariantAddedEvent(Id, productVariant.Id));
 
-        return size;
+        return productVariant;
     }
 
-    public Size AddSize(
-        Size size)
+    public void RemoveProductVariant(ProductVariant productVariant)
     {
-        sizes.Add(size);
-        AddDomainEvent(new SizeAddedEvent(Id, size.Id));
-
-        return size;
-    }
-
-    public void RemoveSize(
-        Size size)
-    {
-        sizes.Remove(size);
+        productVariants.Remove(productVariant);
     }
 }

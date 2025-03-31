@@ -1,48 +1,34 @@
-﻿using SellX.Domain.Orders.Events;
-using SellX.Domain.Products;
-using SellX.Domain.SeedWork;
+﻿using SellX.Domain.SeedWork;
 
 namespace SellX.Domain.Orders;
-
-public class Order : AuditableEntity<OrderId>, IAggregateRoot
+public class Order : Entity<OrderId>
 {
-    public DateOnly Date { get; private set;}
+    private readonly List<OrderItem> orderItems = new();
+    public IReadOnlyCollection<OrderItem> OrderItems => orderItems.AsReadOnly();
+    public DateTime Date { get; private set; }
+    public decimal TotalAmount { get; private set; }
     public string Customer { get; private set; }
     public string CustomerEmail { get; private set; }
     public string CustomerTaxId { get; private set; }
 
+    private Order() : base() { }
 
-    private readonly List<OrderDetail> orderDetails = new();
-    public IReadOnlyCollection<OrderDetail> OrderDetails => orderDetails.AsReadOnly();
-
-    private Order(){}
-
-    private Order(OrderId id, DateOnly date, string customer, string customerEmail, string customerTaxId) : base(id)
+    private Order(OrderId id, DateTime orderDate, decimal totalAmount, string customer, string customerEmail, string customerTaxId) : base(id)
     {
-        Date = date;
+        Date = orderDate;
+        TotalAmount = totalAmount;
         Customer = customer;
         CustomerEmail = customerEmail;
         CustomerTaxId = customerTaxId;
     }
 
-    public static Order CreateOrder(DateOnly date, string customer, string customerEmail, string customerTaxId)
+    public static Order CreateOrder(DateTime orderDate, decimal totalAmount, string customer, string customerEmail, string customerTaxId)
     {
-        var order = new Order(new OrderId(Guid.NewGuid()), date, customer, customerEmail, customerTaxId);
-        OrderValidator.ValidateOrder(order);
-        order.AddDomainEvent(new OrderPlacedEvent(order.Id));
-
-        return order;
+        return new Order(new OrderId(Guid.NewGuid()), orderDate, totalAmount, customer, customerEmail, customerTaxId);
     }
 
-    public OrderDetail AddOrderDetail(
-        ProductId productId
-        , SizeId sizeId
-        , int count
-        , decimal price)
+    public void AddOrderItem(OrderItem orderItem)
     {
-        var orderDetail = OrderDetail.CreateOrderDetail(productId, sizeId, count, price);
-        orderDetails.Add(orderDetail);
-
-        return orderDetail;
+        orderItems.Add(orderItem);
     }
 }

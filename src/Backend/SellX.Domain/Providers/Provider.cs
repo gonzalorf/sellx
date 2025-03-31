@@ -29,7 +29,7 @@ public class Provider : AuditableEntity<ProviderId>, IAggregateRoot
         return provider;
     }
 
-    public void UpdateProperties(string name, string bankAccountNumber, string bankAccountAlias)
+    public void Update(string name, string bankAccountNumber, string bankAccountAlias)
     {
         Name = name;
         BankAccountNumber = bankAccountNumber;

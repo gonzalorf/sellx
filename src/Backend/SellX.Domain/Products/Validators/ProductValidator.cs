@@ -10,7 +10,6 @@ public class ProductValidator : AbstractValidator<Product>
         RuleFor(p => p.Description).NotEmpty().MaximumLength(256);
         RuleFor(p => p.Price).GreaterThanOrEqualTo(0);
         RuleFor(p => p.Tags).NotNull();
-        RuleFor(p => p.Sizes.Count).GreaterThan(0);
     }
 
     public static void ValidateProduct(Product product)

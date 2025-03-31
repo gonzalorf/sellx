@@ -8,7 +8,6 @@ public class StockValidator : AbstractValidator<Stock>
     public StockValidator()
     {
         RuleFor(p => p.ProductId).NotNull();
-        RuleFor(p => p.SizeId).NotNull();
         RuleFor(p => p.Count).GreaterThanOrEqualTo(0);
     }
 
